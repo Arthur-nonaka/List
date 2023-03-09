@@ -1,8 +1,6 @@
 import Button from "./Button";
-import { useState } from "react";
 
-function Add({ students, setStudents }) {
-    const [text, setText] = useState('');
+function Add({ students, setStudents, text, setText }) {
 
     
     const handleSubmit = () => {

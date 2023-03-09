@@ -1,29 +1,16 @@
-import Button from "./Button";
+import StudentShow from "./StudentShow";
 
-function List({ students, setStudents }) {
+function List({ students, setStudents}) {
 
-    const handleClick = (index) => {
-        const updatedStudents = [
-            ...students.slice(0,index),
-            ...students.slice(index+1)
-        ];
-
-        setStudents(updatedStudents);
-
-    };
-
-    const renderedList = students.map((student, index) =>
-        <div key={index} className="flex mb-5 justify-between items-center">
-            {student.name} 
-            <Button onClick={() => handleClick(index)}>
-                Remove
-            </Button>
-        </div>
-    );
+    const renderedList = students.map((student, index) => {
+        return (
+            <StudentShow key={index} index={index} student={student} setStudents={setStudents} students={students} />
+        );
+    });
 
     return (
-        <div className="flex flex-col p-4 mt-2 w-72">
-            {renderedList} 
+        <div className="flex flex-col p-4 mt-2 w-96">
+            {renderedList}
         </div>
     );
 };
