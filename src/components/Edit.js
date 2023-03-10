@@ -1,32 +1,21 @@
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import ListContext from '../context';
 
 
-function Edit({ student, setEditShow, setStudents, index, students}) {
+function Edit({ student, setEditShow, index }) {
     const [value, setValue] = useState(student.name);
+    const { Edit } = useContext(ListContext);
 
     const handleChange = (event) => {
         setValue(event.target.value);
-    };
-
-    const handleClick = () => {
-        const updatedStudents = students.map((s, i) => {
-            if(i === index) {
-                return s = {name: value};
-            } else {
-                return s
-            }
-        })
-
-        setStudents(updatedStudents);
-        setEditShow(false);
     };
 
     return (
         <div className="flex m-2.5 justify-between items-center">
             <input onChange={handleChange} value={value} className={'focus:outline-none'}>
             </input>
-            <Button onClick={handleClick}>
+            <Button onClick={() => { Edit(index, value); setEditShow(false) }}>
                 Done
             </Button>
         </div>

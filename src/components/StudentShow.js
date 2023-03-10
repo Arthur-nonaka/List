@@ -1,27 +1,21 @@
 import Edit from "./Edit";
 import Button from './Button';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ListContext from '../context';
 
-function StudentShow({ index, student, setStudents, students }) {
+function StudentShow({ index, student }) {
     const [editShow, setEditShow] = useState(false);
+    const { Delete } = useContext(ListContext);
 
-    const handleClickDelete = (index) => {
-        if (!editShow) {
-            const updatedStudents = [
-                ...students.slice(0, index),
-                ...students.slice(index + 1)
-            ];
-            setStudents(updatedStudents);
-        } else {
-            alert('Não delete enquanto está editando!')
-        }
 
-    };
     let content =
         <div className="flex m-2.5 justify-between items-center">
             <div>{student.name}</div>
             <div>
-                <Button onClick={() => handleClickDelete(index)}>
+                <Button onClick={() => {
+                    if (!editShow) { Delete(index) }
+                }
+                }>
                     Delete
                 </Button>
                 <Button onClick={() => handleClickEdit()} >
@@ -34,7 +28,7 @@ function StudentShow({ index, student, setStudents, students }) {
         setEditShow(!editShow);
     };
     if (editShow) {
-        content = <Edit student={student} setStudents={setStudents} students={students} setEditShow={setEditShow} editShow={editShow} index={index}/>
+        content = <Edit setEditShow={setEditShow} editShow={editShow} index={index} student={student} />
     };
 
     return (

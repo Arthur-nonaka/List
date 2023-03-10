@@ -1,10 +1,13 @@
 import StudentShow from "./StudentShow";
+import { useContext } from 'react';
+import ListContext from '../context';
 
-function List({ students, setStudents}) {
+function List() {
+    const { students } = useContext(ListContext);
 
     const renderedList = students.map((student, index) => {
         return (
-            <StudentShow key={index} index={index} student={student} setStudents={setStudents} students={students} />
+            <StudentShow key={index} student={student} index={index}/>
         );
     });
 
